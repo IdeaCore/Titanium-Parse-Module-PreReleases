@@ -153,9 +153,9 @@ pre code {
 <li><a href="#table-of-contents">Table Of Contents</a></li>
 <li><a href="#versions">Versions</a><ul>
 <li><a href="#titanium-ios-module-version-30">Titanium iOS Module Version: 3.0</a></li>
-<li><a href="#titanium-android-module-version-201">Titanium Android Module Version: 2.0.1</a></li>
+<li><a href="#titanium-android-module-version-30">Titanium Android Module Version: 3.0</a></li>
 <li><a href="#current-parse-ios-api-version-102">Current Parse iOS API Version: 1.0.2</a></li>
-<li><a href="#current-parse-android-api-version-0432">Current Parse Android API Version: 0.4.32</a></li>
+<li><a href="#current-parse-android-api-version-103">Current Parse Android API Version: 1.0.3</a></li>
 </ul>
 </li>
 <li><a href="#android-release-notes">Android Release Notes</a></li>
@@ -172,10 +172,10 @@ pre code {
 <hr />
 <h2 id="versions">Versions</h2>
 <h3 id="titanium-ios-module-version-30">Titanium iOS Module Version: 3.0</h3>
-<h3 id="titanium-android-module-version-201">Titanium Android Module Version: 2.0.1</h3>
+<h3 id="titanium-android-module-version-30">Titanium Android Module Version: 3.0</h3>
 <hr />
 <h3 id="current-parse-ios-api-version-102">Current Parse iOS API Version: 1.0.2</h3>
-<h3 id="current-parse-android-api-version-0432">Current Parse Android API Version: 0.4.32</h3>
+<h3 id="current-parse-android-api-version-103">Current Parse Android API Version: 1.0.3</h3>
 <hr />
 <p>Please rate both the iOS and Android module in the marketplace if you find it useful :)<br />
 </p>
@@ -183,6 +183,17 @@ pre code {
 <p>I am in the process of making this documentation better and pushing new versions faster. So keep an eye out for that.</p>
 <hr />
 <h2 id="android-release-notes">Android Release Notes</h2>
+<p><strong>Version 3.0</strong></p>
+<ul>
+<li>Parse is now out of beta</li>
+<li>Upgraded to module version 1.0</li>
+</ul>
+<p>PFObject</p>
+<ul>
+<li>added: <code>saveEventually</code>, <code>deleteEventually</code>, <code>fetch</code>, <code>fetchInBackground</code>, <code>fetchIfNeeded</code>, <code>fetchIfNeededInBackground</code>, <code>isDataAvailable</code>, <code>allKeys</code> </li>
+<li>removed/deprecated: <code>objectForKeyInBackground</code></li>
+<li>Changed the <code>ACL</code> property to <code>acl</code> because it was causing case sensitive errors.</li>
+</ul>
 <p><strong>Version 2.0.1</strong></p>
 <ul>
 <li>Added support for Android Push Notifications</li>
@@ -208,6 +219,7 @@ pre code {
 <ul>
 <li>added: <code>saveEventually</code>, <code>deleteEventually</code>, <code>fetch</code>, <code>fetchInBackground</code>, <code>fetchIfNeeded</code>, <code>fetchIfNeededInBackground</code>, <code>isDataAvailable</code>, <code>allKeys</code> </li>
 <li>removed/deprecated: <code>objectForKeyInBackground</code></li>
+<li>Changed the <code>ACL</code> property to <code>acl</code> because it was causing case sensitive errors.</li>
 </ul>
 <p><strong>Version 2.0.2</strong></p>
 <ul>

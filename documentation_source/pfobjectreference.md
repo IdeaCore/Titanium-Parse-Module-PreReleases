@@ -464,7 +464,9 @@ ____
 ##Properties
 
 
-###ACL
+###acl
+
+This is case sensitive. Make sure it's lowercase.
 
 __Getter:__
 	
