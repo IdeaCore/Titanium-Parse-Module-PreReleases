@@ -11,4 +11,6 @@ You need Python Markdown installed to compile the documentation source. Please s
 
 All Pre-Released Module versions will be in its respective folder and the Released folder will contain all the modules that are published to the marketplace.
 
+__PLEASE READ THE RELEASE NOTES TO SEE WHAT CHANGES ARE IN THE PRE-RELEASE MODULES.__
+
 E-mail me at support@forge42.com if you have any questions.
