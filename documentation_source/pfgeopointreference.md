@@ -30,6 +30,8 @@ The following reference files list all the functions, arguments, and return valu
 
 [PFACL Reference](./pfaclreference.html)
 
+[PFFacebookUtils](./pffacebookutilsreference.html)
+
 ____
 ____
 

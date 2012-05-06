@@ -143,6 +143,7 @@ pre code {
 <p><a href="./pffilereference.html">PFFile Reference</a></p>
 <p><a href="./pfgeopointreference.html">PFGeoPoint Reference</a></p>
 <p><a href="./pfaclreference.html">PFACL Reference</a></p>
+<p><a href="./pffacebookutilsreference.html">PFFacebookUtils</a></p>
 <hr />
 <hr />
 <h2 id="table-of-contents">Table Of Contents</h2>
@@ -158,8 +159,24 @@ pre code {
 <li><a href="#current-parse-android-api-version-103">Current Parse Android API Version: 1.0.3</a></li>
 </ul>
 </li>
-<li><a href="#android-release-notes">Android Release Notes</a></li>
-<li><a href="#ios-release-notes">iOS Release Notes</a></li>
+<li><a href="#android-release-notes">Android Release Notes</a><ul>
+<li><a href="#version-30">Version 3.0</a></li>
+<li><a href="#version-201">Version 2.0.1</a></li>
+<li><a href="#version-10">Version 1.0</a></li>
+</ul>
+</li>
+<li><a href="#ios-release-notes">iOS Release Notes</a><ul>
+<li><a href="#version-30_1">Version 3.0</a></li>
+<li><a href="#version-202">Version 2.0.2</a></li>
+<li><a href="#version-133">Version 1.3.3</a></li>
+<li><a href="#version-132">Version 1.3.2</a></li>
+<li><a href="#version-131">Version 1.3.1</a></li>
+<li><a href="#version-13">Version 1.3</a></li>
+<li><a href="#version-12">Version 1.2</a></li>
+<li><a href="#version-11">Version 1.1</a></li>
+<li><a href="#version-10_1">Version 1.0</a></li>
+</ul>
+</li>
 <li><a href="#release-notes">Release Notes</a></li>
 <li><a href="#author">Author</a></li>
 <li><a href="#feedback-and-support">Feedback and Support</a></li>
@@ -183,25 +200,41 @@ pre code {
 <p>I am in the process of making this documentation better and pushing new versions faster. So keep an eye out for that.</p>
 <hr />
 <h2 id="android-release-notes">Android Release Notes</h2>
-<p><strong>Version 3.0</strong></p>
+<h3 id="version-30">Version 3.0</h3>
 <ul>
 <li>Parse is now out of beta</li>
 <li>Upgraded to module version 1.0</li>
 </ul>
+<p>PFQuery</p>
+<ul>
+<li><strong>DEPRECATED</strong>: <code>whereKeyContainedIn</code>. Use whereKey function instead.</li>
+<li>added the following arguments to <code>whereKey</code>: <code>containedIn</code>, <code>notContainedIn</code>, <code>withinGeoBoxFromSouthwest + toNortheast</code>, <code>matchesRegex + modifiers</code>, <code>matchesQuery</code></li>
+<li>added: <code>addAscendingOrder</code>, <code>addDescendingOrder</code>, <code>getFirstObject</code>, <code>getFirstObjectInBackground</code></li>
+</ul>
 <p>PFObject</p>
 <ul>
-<li>added: <code>saveEventually</code>, <code>deleteEventually</code>, <code>fetch</code>, <code>fetchInBackground</code>, <code>fetchIfNeeded</code>, <code>fetchIfNeededInBackground</code>, <code>isDataAvailable</code>, <code>allKeys</code> </li>
-<li>removed/deprecated: <code>objectForKeyInBackground</code></li>
-<li>Changed the <code>ACL</code> property to <code>acl</code> because it was causing case sensitive errors.</li>
+<li>added: <code>saveEventually</code>, <code>deleteEventually</code>, <code>fetch</code>, <code>fetchInBackground</code>, <code>fetchIfNeeded</code>, <code>fetchIfNeededInBackground</code>, <code>isDataAvailable</code>, <code>allKeys</code></li>
+<li><strong>DEPRECATED</strong>: <code>objectForKeyInBackground</code></li>
+<li><strong>CHANGED</strong>: Changed the <code>ACL</code> property to <code>acl</code> because it was causing case sensitive errors.</li>
 </ul>
-<p><strong>Version 2.0.1</strong></p>
+<p>PFACL<br />
+</p>
+<ul>
+<li>added: <code>getPublicReadAccess</code>, <code>getPublicWriteAccess</code>, <code>getReadAccessForUserId</code>, <code>getWriteAccessForUserId</code>, <code>getReadAccessForUser</code>, <code>getWriteAccessForUser</code></li>
+</ul>
+<p>ParseModule<br />
+</p>
+<ul>
+<li>added: <code>PFObjectCreateObjectWithoutData</code>, <code>PFObjectFetchAll</code>, <code>PFObjectFetchAllIfNeeded</code>, <code>PFObjectFetchAllInBackground</code>, <code>PFObjectFetchIfNeededInBackground</code></li>
+</ul>
+<h3 id="version-201">Version 2.0.1</h3>
 <ul>
 <li>Added support for Android Push Notifications</li>
 <li>Added Error Codes 123, 124, 125.</li>
 <li>Added support for GeoPoints and ACLs</li>
 <li>Other bug fixes.</li>
 </ul>
-<p><strong>Version 1.0</strong></p>
+<h3 id="version-10">Version 1.0</h3>
 <ul>
 <li>Everything is implemented except for the new ACL and push notifications.</li>
 <li>Supports PFObject, PFUser, PFFile, PFQuery</li>
@@ -210,28 +243,55 @@ pre code {
 </ul>
 <hr />
 <h2 id="ios-release-notes">iOS Release Notes</h2>
-<p><strong>Version 3.0</strong></p>
+<h3 id="version-30_1">Version 3.0</h3>
 <ul>
 <li>Parse is now out of beta</li>
 <li>Upgraded to module version 1.0</li>
 </ul>
+<p>PFQuery</p>
+<ul>
+<li><strong>DEPRECATED</strong>: <code>whereKeyContainedIn</code>. Use whereKey function instead.</li>
+<li>added the following arguments to <code>whereKey</code>: <code>containedIn</code>, <code>notContainedIn</code>, <code>withinGeoBoxFromSouthwest + toNortheast</code>, <code>matchesRegex + modifiers</code>, <code>matchesQuery</code></li>
+<li>added: <code>addAscendingOrder</code>, <code>addDescendingOrder</code>, <code>getFirstObject</code>, <code>getFirstObjectInBackground</code></li>
+</ul>
+<p>PFUser</p>
+<ul>
+<li><strong>DEPRECATED</strong>: <code>facebookId</code>, <code>hasFacebook</code>, <code>linkToFacebookInBackground</code>, <code>unlinkFromFacebook</code>, <code>unlinkFromFacebookInBackground</code></li>
+</ul>
 <p>PFObject</p>
 <ul>
-<li>added: <code>saveEventually</code>, <code>deleteEventually</code>, <code>fetch</code>, <code>fetchInBackground</code>, <code>fetchIfNeeded</code>, <code>fetchIfNeededInBackground</code>, <code>isDataAvailable</code>, <code>allKeys</code> </li>
-<li>removed/deprecated: <code>objectForKeyInBackground</code></li>
-<li>Changed the <code>ACL</code> property to <code>acl</code> because it was causing case sensitive errors.</li>
+<li>added: <code>saveEventually</code>, <code>deleteEventually</code>, <code>fetch</code>, <code>fetchInBackground</code>, <code>fetchIfNeeded</code>, <code>fetchIfNeededInBackground</code>, <code>isDataAvailable</code>, <code>allKeys</code></li>
+<li><strong>DEPRECATED</strong>: <code>objectForKeyInBackground</code></li>
+<li><strong>CHANGED</strong>: Changed the <code>ACL</code> property to <code>acl</code> because it was causing case sensitive errors.</li>
 </ul>
-<p><strong>Version 2.0.2</strong></p>
+<p>PFACL<br />
+</p>
+<ul>
+<li>added: <code>getPublicReadAccess</code>, <code>getPublicWriteAccess</code>, <code>getReadAccessForUserId</code>, <code>getWriteAccessForUserId</code>, <code>getReadAccessForUser</code>, <code>getWriteAccessForUser</code></li>
+</ul>
+<p>ParseModule<br />
+</p>
+<ul>
+<li>added: <code>PFObjectCreateObjectWithoutData</code>, <code>PFObjectFetchAll</code>, <code>PFObjectFetchAllIfNeeded</code>, <code>PFObjectFetchAllInBackground</code>, <code>PFObjectFetchIfNeededInBackground</code></li>
+<li><strong>DEPRECATED:</strong> <code>PFUserLoginWithFacebookInBackground</code>, <code>FacebookSessionIsValid</code>, <code>FacebookSessionExpirationDate</code>, <code>ParseHasFacebookApplicationId</code>, <code>FacebookRequestWithGraphPath</code>, <code>FacebookRequest</code>, <code>FacebookDialog</code></li>
+<li>added property: <code>pfFacebookUtils</code></li>
+</ul>
+<p>PFFacebookUtils</p>
+<ul>
+<li>added singleton object to use Facebook Utilities. Can only be retrieved from ParseModule.pfFacebookUtils property</li>
+<li>added: <code>FacebookRequestWithGraphPath</code>, <code>FacebookRequest</code>, <code>FacebookDialog</code>, <code>loginInBackground</code>, <code>linkUserInBackground</code>, <code>unlinkUserInBackground</code>, <code>shouldExtendAccessTokenForUser</code>, <code>extendAccessTokenForUserInBackground</code>, <code>extendAccessTokenIfNeededForUserInBackground</code>, <code>isLinkedWithUser</code></li>
+</ul>
+<h3 id="version-202">Version 2.0.2</h3>
 <ul>
 <li>Added Error Codes 123, 124, 125.</li>
 <li>Added support for GeoPoints and ACLs</li>
 <li>Other bug fixes.</li>
 </ul>
-<p><strong>Version 1.3.3</strong></p>
+<h3 id="version-133">Version 1.3.3</h3>
 <ul>
 <li><strong>IMPORTANT:</strong> Versions older than 1.3.3 for this module for iOS were packaging the entire Parse framework with your application. This bug has now been fixed. So you will have a smaller app size.</li>
 </ul>
-<p><strong>Version 1.3.2</strong></p>
+<h3 id="version-132">Version 1.3.2</h3>
 <ul>
 <li><strong>IMPORTANT:</strong> When using the User Sign Up or Login, the <code>username, email, password</code> arguments are now all <strong>CASE-SENSITIVE</strong>. This was done to prevent errors with locales.</li>
 <li>Fixed minor bugs and documentation errors</li>
@@ -243,11 +303,11 @@ pre code {
 <li>Added documentation on how to update objects and users.</li>
 <li>PFObjectSaveAllInBackground now has a callback</li>
 </ul>
-<p><strong>Version 1.3.1</strong></p>
+<h3 id="version-131">Version 1.3.1</h3>
 <ul>
 <li>Fixed minor issue: Emails are now optional when signing up a PFUser. </li>
 </ul>
-<p><strong>Version 1.3</strong></p>
+<h3 id="version-13">Version 1.3</h3>
 <ul>
 <li>
 <p>Fixed memory leaks.</p>
@@ -387,15 +447,15 @@ pre code {
 <p>Added more examples to the <code>app.js</code> file in <code>./examples/</code></p>
 </li>
 </ul>
-<p><strong>Version 1.2</strong></p>
+<h3 id="version-12">Version 1.2</h3>
 <ul>
 <li>Fixed: The Parse Framework was not being located correctly. You can now put the module in the default Titanium Module Directory or in your project's module directory.</li>
 </ul>
-<p><strong>Version 1.1</strong></p>
+<h3 id="version-11">Version 1.1</h3>
 <ul>
 <li>Bug: The Parse Framework was not being located correctly.</li>
 </ul>
-<p><strong>Version 1.0</strong></p>
+<h3 id="version-10_1">Version 1.0</h3>
 <ul>
 <li>Initial Release</li>
 <li>No support for caching or push notifications yet.</li>

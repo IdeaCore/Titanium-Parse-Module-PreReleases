@@ -144,6 +144,7 @@ pre code {
 <p><a href="./pffilereference.html">PFFile Reference</a></p>
 <p><a href="./pfgeopointreference.html">PFGeoPoint Reference</a></p>
 <p><a href="./pfaclreference.html">PFACL Reference</a></p>
+<p><a href="./pffacebookutilsreference.html">PFFacebookUtils</a></p>
 <hr />
 <hr />
 <h2 id="table-of-contents">Table Of Contents</h2>
@@ -169,17 +170,18 @@ pre code {
 <li><a href="#pfuserlogout">PFUserLogout()</a></li>
 <li><a href="#pfuserrequestpasswordresetforemail-email">PFUserRequestPasswordResetForEmail( email )</a></li>
 <li><a href="#pfuserrequestpasswordresetforemailinbackground-map">PFUserRequestPasswordResetForEmailInBackground( Map )</a></li>
-<li><a href="#pfuserloginwithfacebookinbackground-map">PFUserLoginWithFacebookInBackground( Map )</a><ul>
-<li><a href="#ios-only">iOS Only</a></li>
-</ul>
-</li>
 <li><a href="#pfquerycreateuserobjectwithid-id">PFQueryCreateUserObjectWithId( id )</a></li>
 <li><a href="#pfquerycreatequeryforuser">PFQueryCreateQueryForUser()</a></li>
 <li><a href="#pfquerycreatequerywithclassname-classname">PFQueryCreateQueryWithClassName( className )</a></li>
 <li><a href="#pfquerycreateobjectofclassandid-map">PFQueryCreateObjectOfClassAndId( Map )</a></li>
 <li><a href="#pfobjectcreateobjectwithclassname-classname">PFObjectCreateObjectWithClassName( className )</a></li>
+<li><a href="#pfobjectcreateobjectwithoutdata-classname-objectid">PFObjectCreateObjectWithoutData( className, objectId )</a></li>
 <li><a href="#pfobjectsaveall-objects">PFObjectSaveAll( objects )</a></li>
 <li><a href="#pfobjectsaveallinbackground-map">PFObjectSaveAllInBackground( Map )</a></li>
+<li><a href="#pfobjectfetchall-objects">PFObjectFetchAll( objects )</a></li>
+<li><a href="#pfobjectfetchallinbackground-map">PFObjectFetchAllInBackground( Map )</a></li>
+<li><a href="#pfobjectfetchallifneeded-objects">PFObjectFetchAllIfNeeded( objects )</a></li>
+<li><a href="#pfobjectfetchallifneededinbackground-map">PFObjectFetchAllIfNeededInBackground( Map )</a></li>
 <li><a href="#pffilecreatefilewithnameanddata-map">PFFileCreateFileWithNameAndData( Map )</a></li>
 <li><a href="#pffilecreatefilewithdata-data">PFFileCreateFileWithData( data )</a></li>
 <li><a href="#pfaclcreateacl">PFACLCreateACL()</a></li>
@@ -190,63 +192,51 @@ pre code {
 <li><a href="#gettiblobdefaultimagerepresentation">getTiBlobDefaultImageRepresentation()</a></li>
 <li><a href="#willtiblobbesavedwithdefaultimagerepresentation-blob">willTiBlobBeSavedWithDefaultImageRepresentation( blob )</a></li>
 <li><a href="#parseiospushstoredevicetoken-devicetoken">ParseiOSPushStoreDeviceToken( deviceToken )</a><ul>
-<li><a href="#ios-only_1">iOS Only</a></li>
+<li><a href="#ios-only">iOS Only</a></li>
 </ul>
 </li>
 <li><a href="#parseiospushhandlepush-pushdata">ParseiOSPushHandlePush( pushData )</a><ul>
-<li><a href="#ios-only_2">iOS Only</a></li>
+<li><a href="#ios-only_1">iOS Only</a></li>
 </ul>
 </li>
 <li><a href="#parseiospushsubscribetochannel-channel">ParseiOSPushSubscribeToChannel( channel )</a><ul>
-<li><a href="#ios-only_3">iOS Only</a></li>
+<li><a href="#ios-only_2">iOS Only</a></li>
 </ul>
 </li>
 <li><a href="#parseiospushsubscribetochannelinbackground-map">ParseiOSPushSubscribeToChannelInBackground( Map )</a><ul>
-<li><a href="#ios-only_4">iOS Only</a></li>
+<li><a href="#ios-only_3">iOS Only</a></li>
 </ul>
 </li>
 <li><a href="#parseiospushunsubscribefromchannel-channel">ParseiOSPushUnsubscribeFromChannel( channel )</a><ul>
-<li><a href="#ios-only_5">iOS Only</a></li>
+<li><a href="#ios-only_4">iOS Only</a></li>
 </ul>
 </li>
 <li><a href="#parseiospushunsubscribefromchannelinbackground-map">ParseiOSPushUnsubscribeFromChannelInBackground( Map )</a><ul>
-<li><a href="#ios-only_6">iOS Only</a></li>
+<li><a href="#ios-only_5">iOS Only</a></li>
 </ul>
 </li>
 <li><a href="#parseiospushsendpushmessagetochannel-map">ParseiOSPushSendPushMessageToChannel( Map )</a><ul>
-<li><a href="#ios-only_7">iOS Only</a></li>
+<li><a href="#ios-only_6">iOS Only</a></li>
 </ul>
 </li>
 <li><a href="#parseiospushsendpushmessagetochannelinbackground-map">ParseiOSPushSendPushMessageToChannelInBackground( Map )</a><ul>
-<li><a href="#ios-only_8">iOS Only</a></li>
+<li><a href="#ios-only_7">iOS Only</a></li>
 </ul>
 </li>
 <li><a href="#parseiospushsendpushdatatochannel-map">ParseiOSPushSendPushDataToChannel( Map )</a><ul>
-<li><a href="#ios-only_9">iOS Only</a></li>
+<li><a href="#ios-only_8">iOS Only</a></li>
 </ul>
 </li>
 <li><a href="#parseiospushsendpushdatatochannelinbackground-map">ParseiOSPushSendPushDataToChannelInBackground( Map )</a><ul>
-<li><a href="#ios-only_10">iOS Only</a></li>
+<li><a href="#ios-only_9">iOS Only</a></li>
 </ul>
 </li>
 <li><a href="#parseiospushgetsubscribedchannels">ParseiOSPushGetSubscribedChannels()</a><ul>
-<li><a href="#ios-only_11">iOS Only</a></li>
+<li><a href="#ios-only_10">iOS Only</a></li>
 </ul>
 </li>
 <li><a href="#parseiospushgetsubscribedchannelsinbackground-map">ParseiOSPushGetSubscribedChannelsInBackground( Map )</a><ul>
-<li><a href="#ios-only_12">iOS Only</a></li>
-</ul>
-</li>
-<li><a href="#facebookrequestwithgraphpath-path-params-httpmethod-callback">FacebookRequestWithGraphPath ( path, params, httpMethod, callback )</a><ul>
-<li><a href="#ios-only_13">iOS Only</a></li>
-</ul>
-</li>
-<li><a href="#facebookrequest-method-params-callback">FacebookRequest ( method, params, callback )</a><ul>
-<li><a href="#ios-only_14">iOS Only</a></li>
-</ul>
-</li>
-<li><a href="#facebookdialog-action-params-callback">FacebookDialog ( action, params, callback )</a><ul>
-<li><a href="#ios-only_15">iOS Only</a></li>
+<li><a href="#ios-only_11">iOS Only</a></li>
 </ul>
 </li>
 <li><a href="#parseandroidpushsubscribewithurl-channel-url">ParseAndroidPushSubscribeWithURL( channel, url )</a><ul>
@@ -308,15 +298,7 @@ pre code {
 </ul>
 </li>
 <li><a href="#properties">Properties</a><ul>
-<li><a href="#facebooksessionisvalid">FacebookSessionIsValid</a><ul>
-<li><a href="#ios-only_16">iOS Only</a></li>
-</ul>
-</li>
-<li><a href="#facebooksessionexpirationdate">FacebookSessionExpirationDate</a><ul>
-<li><a href="#ios-only_17">iOS Only</a></li>
-</ul>
-</li>
-<li><a href="#parsehasfacebookapplicationid">ParseHasFacebookApplicationId</a></li>
+<li><a href="#pffacebookutils">pfFacebookUtils</a></li>
 </ul>
 </li>
 <li><a href="#tiblob-default-image-representations">TiBlob Default Image Representations</a><ul>
@@ -547,30 +529,6 @@ pre code {
 <p><strong>Returns:</strong></p>
 <p>void</p>
 <hr />
-<h3 id="pfuserloginwithfacebookinbackground-map">PFUserLoginWithFacebookInBackground( Map )</h3>
-<h4 id="ios-only">iOS Only</h4>
-<p>Go here to see all <a href="https://developers.facebook.com/docs/reference/api/permissions/">Facebook Permissions.</a></p>
-<p><strong>Arguments:</strong></p>
-<p>Map:</p>
-<pre><code>{
-    permissions: Array of String
-    success: Callback
-    error: Callback
-}
-</code></pre>
-<p><strong>Callbacks:</strong></p>
-<p>success:
-    event: Null</p>
-<p>error:
-    event: Map</p>
-<pre><code>{
-    errorCode: Number
-    error: String
-}
-</code></pre>
-<p><strong>Returns:</strong></p>
-<p>void</p>
-<hr />
 <h3 id="pfquerycreateuserobjectwithid-id">PFQueryCreateUserObjectWithId( id )</h3>
 <p><strong>Arguments:</strong></p>
 <p>id: String</p>
@@ -622,6 +580,13 @@ pre code {
 <p><strong>Returns:</strong></p>
 <p>PFObject or Null</p>
 <hr />
+<h3 id="pfobjectcreateobjectwithoutdata-classname-objectid">PFObjectCreateObjectWithoutData( className, objectId )</h3>
+<p><strong>Arguments:</strong></p>
+<p>className: String<br />
+objectId: String</p>
+<p><strong>Returns:</strong></p>
+<p>PFObject or Null</p>
+<hr />
 <h3 id="pfobjectsaveall-objects">PFObjectSaveAll( objects )</h3>
 <p><strong>Arguments:</strong></p>
 <p>objects: Array of PFObjects</p>
@@ -636,6 +601,76 @@ pre code {
 </code></pre>
 <hr />
 <h3 id="pfobjectsaveallinbackground-map">PFObjectSaveAllInBackground( Map )</h3>
+<p><strong>Arguments:</strong></p>
+<p>Map:  <br />
+</p>
+<pre><code>{
+    objects: Array of PFObjects
+    success: Callback
+    error: Callback
+}
+</code></pre>
+<p><strong>Callbacks:</strong></p>
+<p>success:
+    event: Null</p>
+<p>error:
+    event: Map
+    {
+        errorCode: Number
+        error: String
+    }</p>
+<p><strong>Returns:</strong></p>
+<p>void</p>
+<hr />
+<h3 id="pfobjectfetchall-objects">PFObjectFetchAll( objects )</h3>
+<p><strong>Arguments:</strong></p>
+<p>objects: Array of PFObjects</p>
+<p><strong>Returns:</strong></p>
+<p>Map:  <br />
+</p>
+<pre><code>{
+    succeeded: Boolean
+    errorCode: Number
+    error: String
+}
+</code></pre>
+<hr />
+<h3 id="pfobjectfetchallinbackground-map">PFObjectFetchAllInBackground( Map )</h3>
+<p><strong>Arguments:</strong></p>
+<p>Map:  <br />
+</p>
+<pre><code>{
+    objects: Array of PFObjects
+    success: Callback
+    error: Callback
+}
+</code></pre>
+<p><strong>Callbacks:</strong></p>
+<p>success:
+    event: Null</p>
+<p>error:
+    event: Map
+    {
+        errorCode: Number
+        error: String
+    }</p>
+<p><strong>Returns:</strong></p>
+<p>void</p>
+<hr />
+<h3 id="pfobjectfetchallifneeded-objects">PFObjectFetchAllIfNeeded( objects )</h3>
+<p><strong>Arguments:</strong></p>
+<p>objects: Array of PFObjects</p>
+<p><strong>Returns:</strong></p>
+<p>Map:  <br />
+</p>
+<pre><code>{
+    succeeded: Boolean
+    errorCode: Number
+    error: String
+}
+</code></pre>
+<hr />
+<h3 id="pfobjectfetchallifneededinbackground-map">PFObjectFetchAllIfNeededInBackground( Map )</h3>
 <p><strong>Arguments:</strong></p>
 <p>Map:  <br />
 </p>
@@ -720,14 +755,14 @@ longitude: Number</p>
 <p>Boolean</p>
 <hr />
 <h3 id="parseiospushstoredevicetoken-devicetoken">ParseiOSPushStoreDeviceToken( deviceToken )</h3>
-<h4 id="ios-only_1">iOS Only</h4>
+<h4 id="ios-only">iOS Only</h4>
 <p><strong>Arguments:</strong></p>
 <p>deviceToken: String </p>
 <p><strong>Returns:</strong></p>
 <p>void</p>
 <hr />
 <h3 id="parseiospushhandlepush-pushdata">ParseiOSPushHandlePush( pushData )</h3>
-<h4 id="ios-only_2">iOS Only</h4>
+<h4 id="ios-only_1">iOS Only</h4>
 <p><strong>Arguments:</strong></p>
 <p>pushData: Map <br />
 </p>
@@ -735,7 +770,7 @@ longitude: Number</p>
 <p>void</p>
 <hr />
 <h3 id="parseiospushsubscribetochannel-channel">ParseiOSPushSubscribeToChannel( channel )</h3>
-<h4 id="ios-only_3">iOS Only</h4>
+<h4 id="ios-only_2">iOS Only</h4>
 <p><strong>Arguments:</strong></p>
 <p>channel: String</p>
 <p><strong>Returns:</strong></p>
@@ -749,7 +784,7 @@ longitude: Number</p>
 </code></pre>
 <hr />
 <h3 id="parseiospushsubscribetochannelinbackground-map">ParseiOSPushSubscribeToChannelInBackground( Map )</h3>
-<h4 id="ios-only_4">iOS Only</h4>
+<h4 id="ios-only_3">iOS Only</h4>
 <p><strong>Arguments:</strong></p>
 <p>Map:</p>
 <pre><code>{
@@ -772,7 +807,7 @@ longitude: Number</p>
 <p>void</p>
 <hr />
 <h3 id="parseiospushunsubscribefromchannel-channel">ParseiOSPushUnsubscribeFromChannel( channel )</h3>
-<h4 id="ios-only_5">iOS Only</h4>
+<h4 id="ios-only_4">iOS Only</h4>
 <p><strong>Arguments:</strong></p>
 <p>channel: String</p>
 <p><strong>Returns:</strong></p>
@@ -786,7 +821,7 @@ longitude: Number</p>
 </code></pre>
 <hr />
 <h3 id="parseiospushunsubscribefromchannelinbackground-map">ParseiOSPushUnsubscribeFromChannelInBackground( Map )</h3>
-<h4 id="ios-only_6">iOS Only</h4>
+<h4 id="ios-only_5">iOS Only</h4>
 <p><strong>Arguments:</strong></p>
 <p>Map:</p>
 <pre><code>{
@@ -809,7 +844,7 @@ longitude: Number</p>
 <p>void</p>
 <hr />
 <h3 id="parseiospushsendpushmessagetochannel-map">ParseiOSPushSendPushMessageToChannel( Map )</h3>
-<h4 id="ios-only_7">iOS Only</h4>
+<h4 id="ios-only_6">iOS Only</h4>
 <p><strong>Arguments:</strong></p>
 <p>Map:  <br />
 </p>
@@ -829,7 +864,7 @@ longitude: Number</p>
 </code></pre>
 <hr />
 <h3 id="parseiospushsendpushmessagetochannelinbackground-map">ParseiOSPushSendPushMessageToChannelInBackground( Map )</h3>
-<h4 id="ios-only_8">iOS Only</h4>
+<h4 id="ios-only_7">iOS Only</h4>
 <p><strong>Arguments:</strong></p>
 <p>Map:</p>
 <pre><code>{
@@ -853,7 +888,7 @@ longitude: Number</p>
 <p>void</p>
 <hr />
 <h3 id="parseiospushsendpushdatatochannel-map">ParseiOSPushSendPushDataToChannel( Map )</h3>
-<h4 id="ios-only_9">iOS Only</h4>
+<h4 id="ios-only_8">iOS Only</h4>
 <p><strong>Arguments:</strong></p>
 <p>Map:  <br />
 </p>
@@ -873,7 +908,7 @@ longitude: Number</p>
 </code></pre>
 <hr />
 <h3 id="parseiospushsendpushdatatochannelinbackground-map">ParseiOSPushSendPushDataToChannelInBackground( Map )</h3>
-<h4 id="ios-only_10">iOS Only</h4>
+<h4 id="ios-only_9">iOS Only</h4>
 <p><strong>Arguments:</strong></p>
 <p>Map:</p>
 <pre><code>{
@@ -897,7 +932,7 @@ longitude: Number</p>
 <p>void</p>
 <hr />
 <h3 id="parseiospushgetsubscribedchannels">ParseiOSPushGetSubscribedChannels()</h3>
-<h4 id="ios-only_11">iOS Only</h4>
+<h4 id="ios-only_10">iOS Only</h4>
 <p><strong>Arguments:</strong></p>
 <p>void  <br />
 </p>
@@ -913,7 +948,7 @@ longitude: Number</p>
 </code></pre>
 <hr />
 <h3 id="parseiospushgetsubscribedchannelsinbackground-map">ParseiOSPushGetSubscribedChannelsInBackground( Map )</h3>
-<h4 id="ios-only_12">iOS Only</h4>
+<h4 id="ios-only_11">iOS Only</h4>
 <p><strong>Arguments:</strong></p>
 <p>Map:</p>
 <pre><code>{
@@ -932,70 +967,6 @@ longitude: Number</p>
     event: Map</p>
 <pre><code>{
     errorCode: Number
-    error: String
-}
-</code></pre>
-<p><strong>Returns:</strong></p>
-<p>void</p>
-<hr />
-<h3 id="facebookrequestwithgraphpath-path-params-httpmethod-callback">FacebookRequestWithGraphPath ( path, params, httpMethod, callback )</h3>
-<h4 id="ios-only_13">iOS Only</h4>
-<p>See this <a href="index.html">Module's Guide</a> for more information</p>
-<p>Graph API</p>
-<p><strong>Arguments:</strong></p>
-<p>path: String<br />
-params: Map of JSONTypes or TiBlob<br />
-httpMethod: String<br />
-callback: Callback<br />
-</p>
-<p><strong>Callbacks:</strong></p>
-<p>callback:
-    event: Map</p>
-<pre><code>{
-    success: Boolean
-    result: Map of JSONTypes (The JSON Object Facebook returns)
-    error: String
-}
-</code></pre>
-<p><strong>Returns:</strong></p>
-<p>void</p>
-<hr />
-<h3 id="facebookrequest-method-params-callback">FacebookRequest ( method, params, callback )</h3>
-<h4 id="ios-only_14">iOS Only</h4>
-<p>See this <a href="index.html">Module's Guide</a> for more information</p>
-<p>OLD REST API request (deprecated)</p>
-<p><strong>Arguments:</strong></p>
-<p>method: String<br />
-params: Map of JSONTypes or TiBlob<br />
-httpMethod: String<br />
-callback: Callback<br />
-</p>
-<p><strong>Callbacks:</strong></p>
-<p>callback:
-    event: Map</p>
-<pre><code>{
-    success: Boolean
-    result: Map of JSONTypes (The JSON Object Facebook returns)
-    error: String
-}
-</code></pre>
-<p><strong>Returns:</strong></p>
-<p>void</p>
-<hr />
-<h3 id="facebookdialog-action-params-callback">FacebookDialog ( action, params, callback )</h3>
-<h4 id="ios-only_15">iOS Only</h4>
-<p>See this <a href="index.html">Module's Guide</a> for more information</p>
-<p><strong>Arguments:</strong></p>
-<p>action: String<br />
-params: Map of JSONTypes or TiBlob<br />
-callback: Callback</p>
-<p><strong>Callbacks:</strong></p>
-<p>callback:
-    event: Map</p>
-<pre><code>{
-    success: Boolean
-    cancelled: Boolean
-    result: String (Query part of url)
     error: String
 }
 </code></pre>
@@ -1187,17 +1158,10 @@ defaultCallback: Callback</p>
 <hr />
 <hr />
 <h2 id="properties">Properties</h2>
-<h3 id="facebooksessionisvalid">FacebookSessionIsValid</h3>
-<h4 id="ios-only_16">iOS Only</h4>
+<h3 id="pffacebookutils">pfFacebookUtils</h3>
+<p>Returns the PFFacebookUtils singleton. See <a href="./pffacebookutilsreference.html">PFFacebookUtils Reference</a></p>
 <p><strong>Getter:</strong></p>
-<p>Boolean</p>
-<h3 id="facebooksessionexpirationdate">FacebookSessionExpirationDate</h3>
-<h4 id="ios-only_17">iOS Only</h4>
-<p><strong>Getter:</strong></p>
-<p>Date</p>
-<h3 id="parsehasfacebookapplicationid">ParseHasFacebookApplicationId</h3>
-<p><strong>Getter:</strong></p>
-<p>Boolean</p>
+<p>PFFacebookUtils</p>
 <hr />
 <hr />
 <h2 id="tiblob-default-image-representations">TiBlob Default Image Representations</h2>

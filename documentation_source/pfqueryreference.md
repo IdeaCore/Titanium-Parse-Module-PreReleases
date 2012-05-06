@@ -30,6 +30,8 @@ The following reference files list all the functions, arguments, and return valu
 
 [PFACL Reference](./pfaclreference.html)
 
+[PFFacebookUtils](./pffacebookutilsreference.html)
+
 ____
 ____
 
@@ -179,6 +181,14 @@ OR
 		key: String
 		matchesRegex: String
 	}
+	
+OR
+
+	{
+		key: String
+		matchesRegex: String
+		modifiers: String
+	}
 
 OR
 
@@ -200,26 +210,36 @@ OR
 		key: String
 		hasSuffix: String
 	}
-
-
-__Returns:__
 	
-void
+OR
 
-_____
-
-###whereKeyContainedIn( Map )
-
-__Arguments:__
-
-Map:
-		
 	{
 		key: String
-
-		containedIn: Array of String
+		containedIn: Array of PFTypes or JSONTypes
 	}
 
+OR
+
+	{
+		key: String
+		notContainedIn: Array of PFTypes or JSONTypes
+	}
+
+OR
+
+	{
+		key: String
+		withinGeoBoxFromSouthwest: PFGeoPoint
+		toNortheast: PFGeoPoint
+	}
+
+OR
+
+	{
+		key: String
+		matchesQuery: PFQuery
+	}
+	
 __Returns:__
 	
 void
@@ -251,6 +271,30 @@ void
 _____
 
 ###orderByDescending()
+
+__Arguments:__
+
+key: String
+
+__Returns:__
+	
+void
+
+_____
+
+###addAscendingOrder()
+
+__Arguments:__
+
+key: String
+
+__Returns:__
+	
+void
+
+_____
+
+###addDescendingOrder()
 
 __Arguments:__
 
@@ -423,6 +467,59 @@ Map:
 	
 	{
 		id: String
+		success: Callback
+		error: Callback
+	}
+
+__Callbacks:__
+
+success:
+	event: Map
+	
+	{
+		object: PFObject
+	}
+
+error:
+	event: Map
+	
+	{
+		errorCode: Number
+		error: String
+	}
+
+__Returns:__
+	
+void
+
+_____
+
+###getFirstObject()
+
+__Arguments:__
+
+void
+
+__Returns:__
+	
+Map:	
+	
+	{
+		succeeded: Boolean
+		object: PFObject
+		errorCode: Number
+		error: String
+	}
+
+_____
+
+###getFirstObjectInBackground( Map )
+
+__Arguments:__
+
+Map:
+	
+	{
 		success: Callback
 		error: Callback
 	}

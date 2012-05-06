@@ -1,4 +1,4 @@
-# Parse API Module PFFile Reference
+# PFFacebookUtils Reference
 
 _Please rate both the iOS and Android module in the marketplace if you find them useful :)_
 
@@ -42,7 +42,7 @@ ____
 ____
 ____
 
-# PFFile Reference
+# Parse Module Reference
 
 ____
 ____
@@ -80,21 +80,17 @@ JSONTypes - String, Boolean, Number, Date, Map(of JSONTypes), Array(of JSONTypes
 
 Callback - a function with one argument Ex: `function(event) {  }`
 
-TiBlob - Titanium Blob Type.
+TiBlob - Titanium Blob Type. 
 
 ____
 ____
 ##Functions
 
-###fileWithNameAndData( Map )
+###isLinkedWithUser( user )
 
 __Arguments:__
 
-Map: 
-	{
-		name: String
-		data: TiBlob
-	}
+user: PFUser
 
 __Returns:__
 	
@@ -102,92 +98,24 @@ Boolean
 
 ____
 
-###fileWithData( data )
-
-__Arguments:__
-
-	data: TiBlob
-
-__Returns:__
-	
-Boolean
-
-____
-
-###getData()
-
-__Arguments:__
-
-void
-
-
-__Returns:__
-	
-Map:	
-	
-	{
-		data: TiBlob
-		succeeded: Boolean
-		errorCode: Number
-		error: String
-	}
-
-____
-
-###getDataInBackground()
-
-__Arguments:__
-
-void
-
-__Callbacks:__
-
-success:
-	event: Map
-	
-	{
-		data: TiBlob
-	}
-
-error:
-	event: Map
-	
-	{
-		errorCode: Number
-		error: String
-	}
-
-__Returns:__
-	
-void
-
-_____
-
-###save()
-
-__Arguments:__
-
-void
-
-__Returns:__
-	
-Map:	
-	
-	{
-		succeeded: Boolean
-		errorCode: Number
-		error: String
-	}
-
-_____
-
-###saveInBackground( Map )
+###loginInBackground( Map )
 
 __Arguments:__
 
 Map:
 	
 	{
+		permissions: Array of Strings
+		success: Callback
+		error: Callback
+	}
+	
+OR
+
+	{
+		facebookId: String
+		accessToken: String
+		expirationDate: Date
 		success: Callback
 		error: Callback
 	}
@@ -195,7 +123,12 @@ Map:
 __Callbacks:__
 
 success:
-	event: Null
+	event: Map
+	
+	{
+		user: PFUser
+	}
+	
 
 error:
 	event: Map
@@ -204,70 +137,263 @@ error:
 		errorCode: Number
 		error: String
 	}
+	
 
 __Returns:__
 	
 void
 
 ____
+
+###linkUserInBackground( Map )
+
+__Arguments:__
+
+Map:
+	
+	{
+		user: PFUser
+		permissions: Array of Strings
+		success: Callback
+		error: Callback
+	}
+	
+OR
+
+	{
+		user: PFUser
+		facebookId: String
+		accessToken: String
+		expirationDate: Date
+		success: Callback
+		error: Callback
+	}
+
+__Callbacks:__
+
+success:
+	event: Null	
+
+error:
+	event: Map
+	
+	{
+		errorCode: Number
+		error: String
+	}
+	
+
+__Returns:__
+	
+void
+
 ____
-##Properties
 
+###unlinkUserInBackground( Map )
 
-###isDataAvailable
+__Arguments:__
 
+Map:
+	
+	{
+		user: PFUser
+		success: Callback
+		error: Callback
+	}
 
-__Getter:__
+__Callbacks:__
+
+success:
+	event: Null	
+
+error:
+	event: Map
+	
+	{
+		errorCode: Number
+		error: String
+	}
+	
+
+__Returns:__
+	
+void
+
+____
+
+###shouldExtendAccessTokenForUser( user )
+
+__Arguments:__
+
+user: PFUser
+
+__Returns:__
 	
 Boolean
 
-_____
+____
 
-###isDirty
+###extendAccessTokenForUserInBackground( Map )
 
+__Arguments:__
 
-__Getter:__
+Map:
 	
-Boolean
+	{
+		user: PFUser
+		success: Callback
+		error: Callback
+	}
 
-_____
+__Callbacks:__
 
-###name
+success:
+	event: Null	
 
-
-__Getter:__
+error:
+	event: Map
 	
-String
+	{
+		errorCode: Number
+		error: String
+	}
+	
+
+__Returns:__
+	
+void
 
 ____
 
-###url
+###extendAccessTokenIfNeededForUserInBackground( Map )
 
+__Arguments:__
 
-__Getter:__
+Map:
 	
-String
+	{
+		user: PFUser
+		success: Callback
+		error: Callback
+	}
 
+__Callbacks:__
+
+success:
+	event: Null	
+
+error:
+	event: Map
+	
+	{
+		errorCode: Number
+		error: String
+	}
+	
+
+__Returns:__
+	
+void
 
 ____
+
+###FacebookRequestWithGraphPath ( path, params, httpMethod, callback )
+
+####iOS Only
+
+See this [Module's Guide](index.html) for more information
+
+Graph API
+
+__Arguments:__
+
+path: String  
+params: Map of JSONTypes or TiBlob  
+httpMethod: String  
+callback: Callback  
+	
+
+__Callbacks:__
+
+callback:
+	event: Map
+	
+	{
+		success: Boolean
+		result: Map of JSONTypes (The JSON Object Facebook returns)
+		error: String
+	}
+
+
+__Returns:__
+	
+void
+
 ____
-## Extra Reference
 
-This guide contains examples and everything you need to know to start using the parse api module. 
+###FacebookRequest ( method, params, callback )
 
-The following reference files list all the functions, arguments, and return values for the Parse Module.
+####iOS Only
 
-[Parse Module Guide](./index.html)
+See this [Module's Guide](index.html) for more information
 
-[Parse Module Reference](./parsemodulereference.html)
+OLD REST API request (deprecated)
 
-[PFObject Reference](./pfobjectreference.html)
+__Arguments:__
 
-[PFQuery Reference](./pfqueryreference.html)
+method: String  
+params: Map of JSONTypes or TiBlob  
+httpMethod: String  
+callback: Callback  
+	
 
-[PFUser Reference](./pfuserreference.html)
+__Callbacks:__
 
-[PFFile Reference](./pffilereference.html)
+callback:
+	event: Map
+	
+	{
+		success: Boolean
+		result: Map of JSONTypes (The JSON Object Facebook returns)
+		error: String
+	}
+
+
+__Returns:__
+	
+void
+
+____
+
+###FacebookDialog ( action, params, callback )
+
+####iOS Only
+
+See this [Module's Guide](index.html) for more information
+
+__Arguments:__
+
+action: String  
+params: Map of JSONTypes or TiBlob  
+callback: Callback
+	
+
+__Callbacks:__
+
+callback:
+	event: Map
+	
+	{
+		success: Boolean
+		cancelled: Boolean
+		result: String (Query part of url)
+		error: String
+	}
+
+
+__Returns:__
+	
+void
 
 ____
 ____

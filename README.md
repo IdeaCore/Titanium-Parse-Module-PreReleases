@@ -1,3 +1,6 @@
+Latest Updates: 
+- Version 3.0Pre0.3: Fixed iOS Module not compiling with Titanium 2.0. Refactored Facebook Utils Code.
+
 PreRelease Versions, Examples, and Documentation for the Titanium Parse Module.  
 (Valid subscription from marketplace needed to use modules)  
 

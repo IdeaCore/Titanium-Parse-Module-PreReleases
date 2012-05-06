@@ -30,6 +30,8 @@ The following reference files list all the functions, arguments, and return valu
 
 [PFACL Reference](./pfaclreference.html)
 
+[PFFacebookUtils](./pffacebookutilsreference.html)
+
 ____
 ____
 
@@ -145,6 +147,80 @@ Map:
 __Returns:__
 	
 void
+
+____
+
+###getPublicReadAccess( )
+
+__Arguments:__
+
+void
+
+__Returns:__
+	
+Boolean
+
+____
+
+###getPublicWriteAccess( )
+
+__Arguments:__
+
+void
+
+__Returns:__
+	
+Boolean
+
+____
+
+###getReadAccessForUserId( userId )
+
+__Arguments:__
+
+userId: String
+
+__Returns:__
+	
+Boolean
+
+____
+
+###getWriteAccessForUserId( userId )
+
+__Arguments:__
+
+userId: String
+
+__Returns:__
+	
+Boolean
+
+____
+
+###getReadAccessForUser( user )
+
+__Arguments:__
+
+userId: PFUser
+
+__Returns:__
+	
+Boolean
+
+____
+
+###getWriteAccessForUser( user )
+
+__Arguments:__
+
+userId: PFUser
+
+__Returns:__
+	
+Boolean
+
+____
 
 ____
 ____

@@ -1,6 +1,9 @@
 // Parse API Module Kitchen Sink
 // www.forge42.com
 
+// PLEASE READ THE GUIDE THAT COMES WITH THIS EXAMPLE.
+// IT WILL TEACH YOU EVERYTHING AND MORE ABOUT THE PARSE API :)
+
 Titanium.UI.setBackgroundColor('white');
 // open a single window
 var win = Ti.UI.createWindow({
@@ -37,11 +40,11 @@ if (Titanium.Platform.name == 'android')
 							applicationId: "Place your Application Id Here",
 	 						clientKey: "Place your Client Key Here"
 						});	
-						
+
+	// Android Push Notifications						
 	// for this to work, you have to use the root activity. The windows you open cannot be heavyweight windows so that the root activity stays active.
 	currentActivity = Ti.Android.currentActivity;
 
-	
 	parseapi.ParseAndroidPushSubscribeWithActivity("", currentActivity);
 	
 	// Check if the user touched a notification in the status bar when launching this activity
@@ -63,27 +66,29 @@ if (Titanium.Platform.name == 'android')
 		}
 	});
 	
+	//this action is used to provide in app notifications 
+	//The action should be your reverse domain and an action name: com.yourdomain.yourappname.youraction
 	parseapi.ParseAndroidPushSetupDefaultActionReceiver("com.lithiumllama.parsefacebooktest.HANDLEP", function (e) {
-			var intent = e.intent;
-			if( intent.hasExtra("com.parse.Channel") && intent.hasExtra("com.parse.Data") ) {
-				var channel = intent.getStringExtra("com.parse.Channel");
-				var data = JSON.parse( intent.getStringExtra("com.parse.Data") );
-				
-				// process your android push notification here
-				Ti.API.info("Got Push Notification In Default Action Receiver!");
-				alert("Running App Notification:\n" + JSON.stringify(data));
-				
-				// clear all the other notifications in the status bar so that the user can't click on them anymore.
-				parseapi.ParseAndroidPushClearAllNotifications();
-			}
-		});
+		var intent = e.intent;
+		if( intent.hasExtra("com.parse.Channel") && intent.hasExtra("com.parse.Data") ) {
+			var channel = intent.getStringExtra("com.parse.Channel");
+			var data = JSON.parse( intent.getStringExtra("com.parse.Data") );
+			
+			// process your android push notification here
+			Ti.API.info("Got Push Notification In Default Action Receiver!");
+			alert("Running App Notification:\n" + JSON.stringify(data));
+			
+			// clear all the other notifications in the status bar so that the user can't click on them anymore.
+			parseapi.ParseAndroidPushClearAllNotifications();
+		}
+	});
 	
 } else {
 	// Parse Supports Facebook API on iOS
 	parseapi.initParse( {
 							applicationId: "Place your Application Id Here",
 	 						clientKey: "Place your Client Key Here",
-							facebookApplicationId: "Place your Facebook Application Id Here (Optional)"
+							facebookApplicationId: "Place your Faecbook Application Id Here (Optional)"
 						});	
 						
 	// iOS Push Notifications
@@ -204,7 +209,7 @@ test_name_array[23] = "Association Ex. (PFObject)";
 test_name_array[24] = "Association Ex. (PFUser)";
 test_name_array[25] = "Retrieve User Associations";
 test_name_array[26] = "PFObject Save All";
-test_name_array[27] = "ParseiOSPush Send Message";
+test_name_array[27] = "Parse Push Send Message";
 test_name_array[28] = "PFFile Save Image";
 test_name_array[29] = "PFFile Get Image";
 
@@ -213,7 +218,7 @@ var test_order_array = new Array(0, 1, 27, 6, 7, 2, 3, 4, 5, 10, 20, 9, 8, 21, 2
 if (Titanium.Platform.name == 'android') 
 {
 	// if using android, don't show iOS Push and Facebook functions
-	test_order_array = new Array(0, 1, 6, 7, 2, 3, 4, 5, 10, 20, 9, 8, 21, 22, 23, 24, 25, 26, 28, 29);
+	test_order_array = new Array(0, 1, 27, 6, 7, 2, 3, 4, 5, 10, 20, 9, 8, 21, 22, 23, 24, 25, 26, 28, 29);
 }
 
 var scrollView = Titanium.UI.createScrollView({
@@ -1196,10 +1201,7 @@ test_button_array[10].addEventListener('click', function() {
 	if( user != null )
 	{
 		alert(  "User is Logged In" + 
-				"\n\nUsername: \n" + user.objectForKey("username") +
-				( (user.hasFacebook && parseapi.ParseHasFacebookApplicationId)?("\n\nFacebook User Id: \n" + user.facebookId + 
-									"\n\nFacebook Session Valid: " + parseapi.FacebookSessionIsValid +
-									"\n\nFacebook Session Expires:\n" + parseapi.FacebookSessionExpirationDate ):"") ); 
+				"\n\nUsername: \n" + user.objectForKey("username") ); 
 	} else {
 		alert( "No user logged in" );	
 	}
@@ -1209,7 +1211,7 @@ test_button_array[10].addEventListener('click', function() {
 //Facebook Login/Sign Up
 test_button_array[11].addEventListener('click', function() {
 	
-	if( parseapi.ParseHasFacebookApplicationId == false )
+	if( parseapi.pfFacebookUtils == null )
 	{
 		alert("Facebook Application Id is not set!");
 		return;
@@ -1226,7 +1228,7 @@ test_button_array[11].addEventListener('click', function() {
 	var permissions = new Array("create_event", "publish_stream", "offline_access");
 	
 	// Asynchronous facebook sign up/login function
-	parseapi.PFUserLoginWithFacebookInBackground({
+	parseapi.pfFacebookUtils.loginInBackground({
 		permissions: permissions,
 		success: function(e) {
 			// event: (PFUser)user
@@ -1235,11 +1237,11 @@ test_button_array[11].addEventListener('click', function() {
 			
 			if( pfUser.isNew )
 			{
-				Ti.API.info("Successfully created a new user with facebook id: " + pfUser.facebookId);
+				Ti.API.info("Successfully created a new user with username: " + pfUser.username);
 			}
 			else
 			{
-				Ti.API.info("Logged In with facebook id: " + pfUser.facebookId);
+				Ti.API.info("Logged In with username: " + pfUser.username);
 			}
 			
 			test_button_array[9].title = "PFUser Logout";
@@ -1265,7 +1267,7 @@ test_button_array[11].addEventListener('click', function() {
 //Facebook Simple Graph API Call
 test_button_array[12].addEventListener('click', function() {
 	
-	if( parseapi.ParseHasFacebookApplicationId == false )
+	if( parseapi.pfFacebookUtils == null )
 	{
 		alert("Facebook Application Id is not set!");
 		return;
@@ -1276,19 +1278,19 @@ test_button_array[12].addEventListener('click', function() {
 	Ti.API.info("");
 	Ti.API.info("Running Test: FB Simple Graph API Call");
 	
-	if( parseapi.PFUserCurrentUser() == null || parseapi.PFUserCurrentUser().hasFacebook == false )
+	if( parseapi.PFUserCurrentUser() == null || parseapi.pfFacebookUtils.isLinkedWithUser(parseapi.PFUserCurrentUser()) == false )
 	{
 		alert("Facebook User Not Logged In!");
 		return;
 	}
 	
-	if( parseapi.FacebookSessionIsValid == false )
+	if( parseapi.pfFacebookUtils.shouldExtendAccessTokenForUser(parseapi.PFUserCurrentUser()) == true )
 	{
-		alert("Facebook Session Is Not Valid!");
+		alert("Facebook Session Is Not Valid! Need to extend access tokens for user.");
 		return;
 	}
 	
-	parseapi.FacebookRequestWithGraphPath('me', {}, 'GET', function(e) {
+	parseapi.pfFacebookUtils.FacebookRequestWithGraphPath('me', {}, 'GET', function(e) {
 
 		if (e.success) {
 			alert(e.result);
@@ -1308,7 +1310,7 @@ test_button_array[12].addEventListener('click', function() {
 //Facebook Create an Event with GRAPH API
 test_button_array[13].addEventListener('click', function() {
 	
-	if( parseapi.ParseHasFacebookApplicationId == false )
+	if( parseapi.pfFacebookUtils == null )
 	{
 		alert("Facebook Application Id is not set!");
 		return;
@@ -1319,15 +1321,15 @@ test_button_array[13].addEventListener('click', function() {
 	Ti.API.info("");
 	Ti.API.info("Running Test: FB Create Event");
 		
-	if( parseapi.PFUserCurrentUser() == null || parseapi.PFUserCurrentUser().hasFacebook == false )
+	if( parseapi.PFUserCurrentUser() == null || parseapi.pfFacebookUtils.isLinkedWithUser(parseapi.PFUserCurrentUser()) == false )
 	{
 		alert("Facebook User Not Logged In!");
 		return;
 	}
 	
-	if( parseapi.FacebookSessionIsValid == false )
+	if( parseapi.pfFacebookUtils.shouldExtendAccessTokenForUser(parseapi.PFUserCurrentUser()) == true )
 	{
-		alert("Facebook Session Is Not Valid!");
+		alert("Facebook Session Is Not Valid! Need to extend access tokens for user.");
 		return;
 	}
 	
@@ -1343,7 +1345,7 @@ test_button_array[13].addEventListener('click', function() {
 		name: title
 	};
 	
-	parseapi.FacebookRequestWithGraphPath('me/events', data, 'POST', function(e) {
+	parseapi.pfFacebookUtils.FacebookRequestWithGraphPath('me/events', data, 'POST', function(e) {
 		if (e.success) {
 			alert("Success! Returned from FB: " + e.result);
 		} else {
@@ -1361,7 +1363,7 @@ test_button_array[13].addEventListener('click', function() {
 //Facebook Set Status Message
 test_button_array[14].addEventListener('click', function() {
 	
-	if( parseapi.ParseHasFacebookApplicationId == false )
+	if( parseapi.pfFacebookUtils == null )
 	{
 		alert("Facebook Application Id is not set!");
 		return;
@@ -1372,19 +1374,19 @@ test_button_array[14].addEventListener('click', function() {
 	Ti.API.info("");
 	Ti.API.info("Running Test: FB Set Status Msg");
 	
-	if( parseapi.PFUserCurrentUser() == null || parseapi.PFUserCurrentUser().hasFacebook == false )
+	if( parseapi.PFUserCurrentUser() == null || parseapi.pfFacebookUtils.isLinkedWithUser(parseapi.PFUserCurrentUser()) == false )
 	{
 		alert("Facebook User Not Logged In!");
 		return;
 	}
 	
-	if( parseapi.FacebookSessionIsValid == false )
+	if( parseapi.pfFacebookUtils.shouldExtendAccessTokenForUser(parseapi.PFUserCurrentUser()) == true )
 	{
-		alert("Facebook Session Is Not Valid!");
+		alert("Facebook Session Is Not Valid! Need to extend access tokens for user.");
 		return;
 	}
 	
-	parseapi.FacebookRequestWithGraphPath('me/feed', {message: "Trying out FB Graph API!"}, "POST", function(e) {
+	parseapi.pfFacebookUtils.FacebookRequestWithGraphPath('me/feed', {message: "Trying out FB Graph API!"}, "POST", function(e) {
 		if (e.cancelled) {
 			alert("Cancelled!");
 		} else if (e.success) {
@@ -1404,7 +1406,7 @@ test_button_array[14].addEventListener('click', function() {
 //Facebook Post a photo using the Graph API
 test_button_array[15].addEventListener('click', function() {
 	
-	if( parseapi.ParseHasFacebookApplicationId == false )
+	if( parseapi.pfFacebookUtils == null )
 	{
 		alert("Facebook Application Id is not set!");
 		return;
@@ -1415,15 +1417,15 @@ test_button_array[15].addEventListener('click', function() {
 	Ti.API.info("");
 	Ti.API.info("Running Test: FB Upload Photo (Graph API)");
 	
-	if( parseapi.PFUserCurrentUser() == null || parseapi.PFUserCurrentUser().hasFacebook == false )
+	if( parseapi.PFUserCurrentUser() == null || parseapi.pfFacebookUtils.isLinkedWithUser(parseapi.PFUserCurrentUser()) == false )
 	{
 		alert("Facebook User Not Logged In!");
 		return;
 	}
 	
-	if( parseapi.FacebookSessionIsValid == false )
+	if( parseapi.pfFacebookUtils.shouldExtendAccessTokenForUser(parseapi.PFUserCurrentUser()) == true )
 	{
-		alert("Facebook Session Is Not Valid!");
+		alert("Facebook Session Is Not Valid! Need to extend access tokens for user.");
 		return;
 	}
 	
@@ -1440,7 +1442,7 @@ test_button_array[15].addEventListener('click', function() {
 				picture: image
 			};
 			
-			parseapi.FacebookRequestWithGraphPath('me/photos', data, 'POST', function(e){
+			parseapi.pfFacebookUtils.FacebookRequestWithGraphPath('me/photos', data, 'POST', function(e){
 				if (e.success) {
 					alert("Success!  From FB: " + e.result);
 				} else {
@@ -1462,7 +1464,7 @@ test_button_array[15].addEventListener('click', function() {
 //Facebook Post a photo using the REST API (deprecated)
 test_button_array[16].addEventListener('click', function() {
 	
-	if( parseapi.ParseHasFacebookApplicationId == false )
+	if( parseapi.pfFacebookUtils == null )
 	{
 		alert("Facebook Application Id is not set!");
 		return;
@@ -1473,15 +1475,15 @@ test_button_array[16].addEventListener('click', function() {
 	Ti.API.info("");
 	Ti.API.info("Running Test: FB Upload Photo (REST deprecated)");
 	
-	if( parseapi.PFUserCurrentUser() == null || parseapi.PFUserCurrentUser().hasFacebook == false )
+	if( parseapi.PFUserCurrentUser() == null || parseapi.pfFacebookUtils.isLinkedWithUser(parseapi.PFUserCurrentUser()) == false )
 	{
 		alert("Facebook User Not Logged In!");
 		return;
 	}
 	
-	if( parseapi.FacebookSessionIsValid == false )
+	if( parseapi.pfFacebookUtils.shouldExtendAccessTokenForUser(parseapi.PFUserCurrentUser()) == true )
 	{
-		alert("Facebook Session Is Not Valid!");
+		alert("Facebook Session Is Not Valid! Need to extend access tokens for user.");
 		return;
 	}
 	
@@ -1498,7 +1500,7 @@ test_button_array[16].addEventListener('click', function() {
 				picture: image
 			};
 			
-			parseapi.FacebookRequest('photos.upload', data, function(e){
+			parseapi.pfFacebookUtils.FacebookRequest('photos.upload', data, function(e){
 				if (e.success) {
 					alert("Success!  From FB: " + e.result);
 				} else {
@@ -1520,7 +1522,7 @@ test_button_array[16].addEventListener('click', function() {
 //Facebook Show the Facebook Feed Dialog
 test_button_array[17].addEventListener('click', function() {
 	
-	if( parseapi.ParseHasFacebookApplicationId == false )
+	if( parseapi.pfFacebookUtils == null )
 	{
 		alert("Facebook Application Id is not set!");
 		return;
@@ -1531,15 +1533,15 @@ test_button_array[17].addEventListener('click', function() {
 	Ti.API.info("");
 	Ti.API.info("Running Test: FB Feed Dialog");
 	
-	if( parseapi.PFUserCurrentUser() == null || parseapi.PFUserCurrentUser().hasFacebook == false )
+	if( parseapi.PFUserCurrentUser() == null || parseapi.pfFacebookUtils.isLinkedWithUser(parseapi.PFUserCurrentUser()) == false )
 	{
 		alert("Facebook User Not Logged In!");
 		return;
 	}
 	
-	if( parseapi.FacebookSessionIsValid == false )
+	if( parseapi.pfFacebookUtils.shouldExtendAccessTokenForUser(parseapi.PFUserCurrentUser()) == true )
 	{
-		alert("Facebook Session Is Not Valid!");
+		alert("Facebook Session Is Not Valid! Need to extend access tokens for user.");
 		return;
 	}
 	
@@ -1552,7 +1554,7 @@ test_button_array[17].addEventListener('click', function() {
 		description: "You've got the ideas, now you've got the power. Titanium translates your hard won web skills into native applications..."
 	};
 	
-	parseapi.FacebookDialog("feed", data, function(e) {
+	parseapi.pfFacebookUtils.FacebookDialog("feed", data, function(e) {
 		if (e.success) {
 			alert("Success!  From FB: " + e.result);
 		} else {
@@ -1572,7 +1574,7 @@ test_button_array[17].addEventListener('click', function() {
 // Link Facebook To Existing User
 test_button_array[18].addEventListener('click', function() {
 	
-	if( parseapi.ParseHasFacebookApplicationId == false )
+	if( parseapi.pfFacebookUtils == null )
 	{
 		alert("Facebook Application Id is not set!");
 		return;
@@ -1596,21 +1598,22 @@ test_button_array[18].addEventListener('click', function() {
 		return;
 	}
 	
-	if( user.hasFacebook )
+	if( parseapi.pfFacebookUtils.isLinkedWithUser(user) == true )
 	{
 		alert("User already has a linked facebook account");
 		return;
 	}
 	
 	// Only Asynchronous
-	user.linkToFacebookInBackground({
+	parseapi.pfFacebookUtils.linkUserInBackground({
+		user: user,
 		permissions: permissions,
 		success: function(e) {
 			// event: null
 			
 			var pfUser = parseapi.PFUserCurrentUser();
 			
-			Ti.API.info("Successfully Linked Account! User Facebook Id: " + pfUser.facebookId);
+			Ti.API.info("Successfully Linked Account!");
 
 		},
 		
@@ -1622,7 +1625,7 @@ test_button_array[18].addEventListener('click', function() {
 			}
 			else {
 
-				Ti.API.info("Could not link with Facebook Account! ErrorCode: " + e.errorCode + " Error: " + e.error);
+				Ti.API.info("Could not link account! ErrorCode: " + e.errorCode + " Error: " + e.error);
 			}
 		}
 	});
@@ -1633,7 +1636,7 @@ test_button_array[18].addEventListener('click', function() {
 // Unlink Facebook Account
 test_button_array[19].addEventListener('click', function() {
 	
-	if( parseapi.ParseHasFacebookApplicationId == false )
+	if( parseapi.pfFacebookUtils == null )
 	{
 		alert("Facebook Application Id is not set!");
 		return;
@@ -1652,43 +1655,36 @@ test_button_array[19].addEventListener('click', function() {
 		return;
 	}
 	
-	if( user.hasFacebook == false )
+	if( parseapi.pfFacebookUtils.isLinkedWithUser(user) == false )
 	{
 		alert("User does not have a linked Facebook account");
 		return;
 	}
 	
-	/*// Asynchronous Unlink
-	user.unlinkFromFacebookInBackground({
-
+	// Only Asynchronous
+	parseapi.pfFacebookUtils.unlinkUserInBackground({
+		user: user,
 		success: function(e) {
-			// event: Null
-
-			alert("Success: The user is no longer associated with their Facebook account.");
+			// event: null
 			
+			var pfUser = parseapi.PFUserCurrentUser();
+			
+			Ti.API.info("Successfully Unlinked Account!");
+
 		},
 		
 		error: function(e) {
 			// event: (integer or null)errorCode, (string or null)error
 			
-			alert("Could not unlink account! ErrorCode: " + e.errorCode + " Error: " + e.error);
+			if( e.errorCode == parseapi.kParseErrorFacebookLoginCancelled ) {
+				Ti.API.info(e.error);
+			}
+			else {
+
+				Ti.API.info("Could not unlink account! ErrorCode: " + e.errorCode + " Error: " + e.error);
+			}
 		}
-		
-	});*/
-	
-	// Synchronous Unlink
-	var result = user.unlinkFromFacebook();
-	
-	// Synchronous.
-	// returns (boolean)succeeded, (integer or null)errorCode, (string or null)error
-	if( result.succeeded ) {
-	
-		alert("Success: The user is no longer associated with their Facebook account.");
-		
-	} else {
-		
-		alert("Could not unlink account! ErrorCode: " + e.errorCode + " Error: " + e.error);
-	}
+	});
 
 });
 
@@ -2252,28 +2248,50 @@ test_button_array[26].addEventListener('click', function() {
 
 });
 
-//ParseiOSPush Send Message Sync
+//Parse Push Send Message Sync
 test_button_array[27].addEventListener('click', function() {
 	Ti.API.info("");
 	Ti.API.info("");
 	Ti.API.info("");
-	Ti.API.info("Running Test: ParseiOSPush Send Message");
+	Ti.API.info("Running Test: Parse Push Send Message");
 	
-	// Synchronous
-	// Send Push Message to Global Channel
-	// returns (boolean)succeeded, (integer or null)errorCode, (string or null)error
-	var result = parseapi.ParseiOSPushSendPushMessageToChannel( {
-																	channel: "", // global channel
-																	message: "Client Sent Everyone this Message!" 
-																});
+	var result = null;
 	
+	if (Titanium.Platform.name == 'android') {
+		// Synchronous
+		// Send Push Message to Global Channel
+		// returns (boolean)succeeded, (integer or null)errorCode, (string or null)error
+		result = parseapi.ParseAndroidPushSendPushDataToChannel( {
+																		channel: "", // global channel
+																		pushToIOS: true,
+																		data: { 
+																			alert: "Android Client Sent Everyone this Message!", 
+																			action: "com.lithiumllama.parsefacebooktest.HANDLEP",
+																			title: "Parse Push Notification"
+																		}
+																	});
+	} else {
+		// Synchronous
+		// Send Push Message to Global Channel
+		// returns (boolean)succeeded, (integer or null)errorCode, (string or null)error
+		result = parseapi.ParseiOSPushSendPushDataToChannel( {
+																		channel: "", // global channel
+																		data: { 
+																			alert: "iOS Client Sent Everyone this Message!",
+																			action: "com.lithiumllama.parsefacebooktest.HANDLEP",
+																			title: "Parse Push Notification"
+																		} 
+																	});
+	}
+	
+			
 	if( result.succeeded ) {
 	
-		alert("Successfully sent Push Notification message.");
+		Ti.API.info("Successfully sent Push Notification message.");
 		
 	} else {
 		
-		alert("Could not send Push Notification message. ErrorCode: " + result.errorCode + " Error: " + result.error);
+		Ti.API.info("Could not send Push Notification message. ErrorCode: " + result.errorCode + " Error: " + result.error);
 	}
 
 });

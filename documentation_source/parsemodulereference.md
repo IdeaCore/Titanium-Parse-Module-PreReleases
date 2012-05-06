@@ -30,6 +30,8 @@ The following reference files list all the functions, arguments, and return valu
 
 [PFACL Reference](./pfaclreference.html)
 
+[PFFacebookUtils](./pffacebookutilsreference.html)
+
 ____
 ____
 
@@ -306,44 +308,6 @@ void
 
 ____
 
-###PFUserLoginWithFacebookInBackground( Map )
-
-####iOS Only
-
-Go here to see all [Facebook Permissions.](https://developers.facebook.com/docs/reference/api/permissions/)
-
-__Arguments:__
-
-Map:
-	
-	{
-		permissions: Array of String
-		success: Callback
-		error: Callback
-	}
-	
-
-__Callbacks:__
-
-success:
-	event: Null
-	
-
-error:
-	event: Map
-	
-	{
-		errorCode: Number
-		error: String
-	}
-	
-
-__Returns:__
-	
-void
-
-____
-
 ###PFQueryCreateUserObjectWithId( id )
 
 __Arguments:__
@@ -423,6 +387,19 @@ PFObject or Null
 
 ____
 
+###PFObjectCreateObjectWithoutData( className, objectId )
+
+__Arguments:__
+
+className: String  
+objectId: String
+
+__Returns:__
+	
+PFObject or Null
+
+____
+
 ###PFObjectSaveAll( objects )
 
 __Arguments:__
@@ -442,6 +419,106 @@ Map:
 ____
 
 ###PFObjectSaveAllInBackground( Map )
+
+__Arguments:__
+
+Map:	
+	
+	{
+		objects: Array of PFObjects
+		success: Callback
+		error: Callback
+	}
+
+__Callbacks:__
+
+success:
+	event: Null
+	
+
+error:
+	event: Map
+	{
+		errorCode: Number
+		error: String
+	}
+	
+
+__Returns:__
+	
+void
+
+____
+
+###PFObjectFetchAll( objects )
+
+__Arguments:__
+
+objects: Array of PFObjects
+
+__Returns:__
+	
+Map:	
+	
+	{
+		succeeded: Boolean
+		errorCode: Number
+		error: String
+	}
+
+____
+
+###PFObjectFetchAllInBackground( Map )
+
+__Arguments:__
+
+Map:	
+	
+	{
+		objects: Array of PFObjects
+		success: Callback
+		error: Callback
+	}
+
+__Callbacks:__
+
+success:
+	event: Null
+	
+
+error:
+	event: Map
+	{
+		errorCode: Number
+		error: String
+	}
+	
+
+__Returns:__
+	
+void
+
+____
+
+###PFObjectFetchAllIfNeeded( objects )
+
+__Arguments:__
+
+objects: Array of PFObjects
+
+__Returns:__
+	
+Map:	
+	
+	{
+		succeeded: Boolean
+		errorCode: Number
+		error: String
+	}
+
+____
+
+###PFObjectFetchAllIfNeededInBackground( Map )
 
 __Arguments:__
 
@@ -920,106 +997,6 @@ __Returns:__
 	
 void
 
-____
-
-###FacebookRequestWithGraphPath ( path, params, httpMethod, callback )
-
-####iOS Only
-
-See this [Module's Guide](index.html) for more information
-
-Graph API
-
-__Arguments:__
-
-path: String  
-params: Map of JSONTypes or TiBlob  
-httpMethod: String  
-callback: Callback  
-	
-
-__Callbacks:__
-
-callback:
-	event: Map
-	
-	{
-		success: Boolean
-		result: Map of JSONTypes (The JSON Object Facebook returns)
-		error: String
-	}
-
-
-__Returns:__
-	
-void
-
-____
-
-###FacebookRequest ( method, params, callback )
-
-####iOS Only
-
-See this [Module's Guide](index.html) for more information
-
-OLD REST API request (deprecated)
-
-__Arguments:__
-
-method: String  
-params: Map of JSONTypes or TiBlob  
-httpMethod: String  
-callback: Callback  
-	
-
-__Callbacks:__
-
-callback:
-	event: Map
-	
-	{
-		success: Boolean
-		result: Map of JSONTypes (The JSON Object Facebook returns)
-		error: String
-	}
-
-
-__Returns:__
-	
-void
-
-____
-
-###FacebookDialog ( action, params, callback )
-
-####iOS Only
-
-See this [Module's Guide](index.html) for more information
-
-__Arguments:__
-
-action: String  
-params: Map of JSONTypes or TiBlob  
-callback: Callback
-	
-
-__Callbacks:__
-
-callback:
-	event: Map
-	
-	{
-		success: Boolean
-		cancelled: Boolean
-		result: String (Query part of url)
-		error: String
-	}
-
-
-__Returns:__
-	
-void
-
 _____
 
 ###ParseAndroidPushSubscribeWithURL( channel, url )
@@ -1324,33 +1301,18 @@ __Returns:__
 	
 void
 
-
 ____
 ____
 ##Properties
 
 
-###FacebookSessionIsValid
+###pfFacebookUtils
 
-####iOS Only
-
-__Getter:__
-	
-Boolean
-
-###FacebookSessionExpirationDate
-
-####iOS Only
+Returns the PFFacebookUtils singleton. See [PFFacebookUtils Reference](./pffacebookutilsreference.html)
 
 __Getter:__
 	
-Date
-
-###ParseHasFacebookApplicationId
-
-__Getter:__
-	
-Boolean
+PFFacebookUtils
 
 ____
 ____

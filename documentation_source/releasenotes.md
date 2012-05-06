@@ -28,6 +28,8 @@ The following reference files list all the functions, arguments, and return valu
 
 [PFACL Reference](./pfaclreference.html)
 
+[PFFacebookUtils](./pffacebookutilsreference.html)
+
 ____
 ____
 
@@ -60,25 +62,39 @@ ____
 
 ##Android Release Notes
 
-__Version 3.0__
+###Version 3.0
 
 - Parse is now out of beta
 - Upgraded to module version 1.0
 
+PFQuery
+
+- __DEPRECATED__: `whereKeyContainedIn`. Use whereKey function instead.
+- added the following arguments to `whereKey`: `containedIn`, `notContainedIn`, `withinGeoBoxFromSouthwest + toNortheast`, `matchesRegex + modifiers`, `matchesQuery`
+- added: `addAscendingOrder`, `addDescendingOrder`, `getFirstObject`, `getFirstObjectInBackground`
+
 PFObject
 
-- added: `saveEventually`, `deleteEventually`, `fetch`, `fetchInBackground`, `fetchIfNeeded`, `fetchIfNeededInBackground`, `isDataAvailable`, `allKeys` 
-- removed/deprecated: `objectForKeyInBackground`
-- Changed the `ACL` property to `acl` because it was causing case sensitive errors.
+- added: `saveEventually`, `deleteEventually`, `fetch`, `fetchInBackground`, `fetchIfNeeded`, `fetchIfNeededInBackground`, `isDataAvailable`, `allKeys`
+- __DEPRECATED__: `objectForKeyInBackground`
+- __CHANGED__: Changed the `ACL` property to `acl` because it was causing case sensitive errors.
 
-__Version 2.0.1__
+PFACL  
+
+- added: `getPublicReadAccess`, `getPublicWriteAccess`, `getReadAccessForUserId`, `getWriteAccessForUserId`, `getReadAccessForUser`, `getWriteAccessForUser`
+
+ParseModule  
+
+- added: `PFObjectCreateObjectWithoutData`, `PFObjectFetchAll`, `PFObjectFetchAllIfNeeded`, `PFObjectFetchAllInBackground`, `PFObjectFetchIfNeededInBackground`
+
+###Version 2.0.1
 
 - Added support for Android Push Notifications
 - Added Error Codes 123, 124, 125.
 - Added support for GeoPoints and ACLs
 - Other bug fixes.
 
-__Version 1.0__
+###Version 1.0
 
 - Everything is implemented except for the new ACL and push notifications.
 - Supports PFObject, PFUser, PFFile, PFQuery
@@ -89,28 +105,54 @@ ____
 
 ##iOS Release Notes
 
-__Version 3.0__
+###Version 3.0
 
 - Parse is now out of beta
 - Upgraded to module version 1.0
 
+PFQuery
+
+- __DEPRECATED__: `whereKeyContainedIn`. Use whereKey function instead.
+- added the following arguments to `whereKey`: `containedIn`, `notContainedIn`, `withinGeoBoxFromSouthwest + toNortheast`, `matchesRegex + modifiers`, `matchesQuery`
+- added: `addAscendingOrder`, `addDescendingOrder`, `getFirstObject`, `getFirstObjectInBackground`
+
+PFUser
+
+- __DEPRECATED__: `facebookId`, `hasFacebook`, `linkToFacebookInBackground`, `unlinkFromFacebook`, `unlinkFromFacebookInBackground`
+
 PFObject
 
-- added: `saveEventually`, `deleteEventually`, `fetch`, `fetchInBackground`, `fetchIfNeeded`, `fetchIfNeededInBackground`, `isDataAvailable`, `allKeys` 
-- removed/deprecated: `objectForKeyInBackground`
-- Changed the `ACL` property to `acl` because it was causing case sensitive errors.
+- added: `saveEventually`, `deleteEventually`, `fetch`, `fetchInBackground`, `fetchIfNeeded`, `fetchIfNeededInBackground`, `isDataAvailable`, `allKeys`
+- __DEPRECATED__: `objectForKeyInBackground`
+- __CHANGED__: Changed the `ACL` property to `acl` because it was causing case sensitive errors.
 
-__Version 2.0.2__
+PFACL  
+
+- added: `getPublicReadAccess`, `getPublicWriteAccess`, `getReadAccessForUserId`, `getWriteAccessForUserId`, `getReadAccessForUser`, `getWriteAccessForUser`
+
+ParseModule  
+
+- added: `PFObjectCreateObjectWithoutData`, `PFObjectFetchAll`, `PFObjectFetchAllIfNeeded`, `PFObjectFetchAllInBackground`, `PFObjectFetchIfNeededInBackground`
+- __DEPRECATED:__ `PFUserLoginWithFacebookInBackground`, `FacebookSessionIsValid`, `FacebookSessionExpirationDate`, `ParseHasFacebookApplicationId`, `FacebookRequestWithGraphPath`, `FacebookRequest`, `FacebookDialog`
+- added property: `pfFacebookUtils`
+
+PFFacebookUtils
+
+- added singleton object to use Facebook Utilities. Can only be retrieved from ParseModule.pfFacebookUtils property
+- added: `FacebookRequestWithGraphPath`, `FacebookRequest`, `FacebookDialog`, `loginInBackground`, `linkUserInBackground`, `unlinkUserInBackground`, `shouldExtendAccessTokenForUser`, `extendAccessTokenForUserInBackground`, `extendAccessTokenIfNeededForUserInBackground`, `isLinkedWithUser`
+
+
+###Version 2.0.2
 
 - Added Error Codes 123, 124, 125.
 - Added support for GeoPoints and ACLs
 - Other bug fixes.
 
-__Version 1.3.3__
+###Version 1.3.3
 
 - __IMPORTANT:__ Versions older than 1.3.3 for this module for iOS were packaging the entire Parse framework with your application. This bug has now been fixed. So you will have a smaller app size.
 
-__Version 1.3.2__
+###Version 1.3.2
 
 - __IMPORTANT:__ When using the User Sign Up or Login, the `username, email, password` arguments are now all __CASE-SENSITIVE__. This was done to prevent errors with locales.
 - Fixed minor bugs and documentation errors
@@ -122,11 +164,11 @@ __Version 1.3.2__
 - Added documentation on how to update objects and users.
 - PFObjectSaveAllInBackground now has a callback
 
-__Version 1.3.1__
+###Version 1.3.1
 
 - Fixed minor issue: Emails are now optional when signing up a PFUser. 
 
-__Version 1.3__
+###Version 1.3
 
 - Fixed memory leaks.
 
@@ -220,16 +262,16 @@ __Version 1.3__
 - Added more examples to the `app.js` file in `./examples/`
 
 
-__Version 1.2__
+###Version 1.2
 
 - Fixed: The Parse Framework was not being located correctly. You can now put the module in the default Titanium Module Directory or in your project's module directory.
 
 
-__Version 1.1__
+###Version 1.1
 
 - Bug: The Parse Framework was not being located correctly.
 
-__Version 1.0__
+###Version 1.0
 
 - Initial Release
 - No support for caching or push notifications yet.

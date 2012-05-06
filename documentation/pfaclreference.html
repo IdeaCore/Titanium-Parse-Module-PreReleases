@@ -144,6 +144,7 @@ pre code {
 <p><a href="./pffilereference.html">PFFile Reference</a></p>
 <p><a href="./pfgeopointreference.html">PFGeoPoint Reference</a></p>
 <p><a href="./pfaclreference.html">PFACL Reference</a></p>
+<p><a href="./pffacebookutilsreference.html">PFFacebookUtils</a></p>
 <hr />
 <hr />
 <h2 id="table-of-contents">Table Of Contents</h2>
@@ -161,6 +162,12 @@ pre code {
 <li><a href="#setpublicwriteaccessallowed-allowed">setPublicWriteAccessAllowed( allowed )</a></li>
 <li><a href="#setreadaccess-map">setReadAccess( Map )</a></li>
 <li><a href="#setwriteaccess-map">setWriteAccess( Map )</a></li>
+<li><a href="#getpublicreadaccess">getPublicReadAccess( )</a></li>
+<li><a href="#getpublicwriteaccess">getPublicWriteAccess( )</a></li>
+<li><a href="#getreadaccessforuserid-userid">getReadAccessForUserId( userId )</a></li>
+<li><a href="#getwriteaccessforuserid-userid">getWriteAccessForUserId( userId )</a></li>
+<li><a href="#getreadaccessforuser-user">getReadAccessForUser( user )</a></li>
+<li><a href="#getwriteaccessforuser-user">getWriteAccessForUser( user )</a></li>
 </ul>
 </li>
 <li><a href="#release-notes">Release Notes</a></li>
@@ -238,6 +245,43 @@ pre code {
 </code></pre>
 <p><strong>Returns:</strong></p>
 <p>void</p>
+<hr />
+<h3 id="getpublicreadaccess">getPublicReadAccess( )</h3>
+<p><strong>Arguments:</strong></p>
+<p>void</p>
+<p><strong>Returns:</strong></p>
+<p>Boolean</p>
+<hr />
+<h3 id="getpublicwriteaccess">getPublicWriteAccess( )</h3>
+<p><strong>Arguments:</strong></p>
+<p>void</p>
+<p><strong>Returns:</strong></p>
+<p>Boolean</p>
+<hr />
+<h3 id="getreadaccessforuserid-userid">getReadAccessForUserId( userId )</h3>
+<p><strong>Arguments:</strong></p>
+<p>userId: String</p>
+<p><strong>Returns:</strong></p>
+<p>Boolean</p>
+<hr />
+<h3 id="getwriteaccessforuserid-userid">getWriteAccessForUserId( userId )</h3>
+<p><strong>Arguments:</strong></p>
+<p>userId: String</p>
+<p><strong>Returns:</strong></p>
+<p>Boolean</p>
+<hr />
+<h3 id="getreadaccessforuser-user">getReadAccessForUser( user )</h3>
+<p><strong>Arguments:</strong></p>
+<p>userId: PFUser</p>
+<p><strong>Returns:</strong></p>
+<p>Boolean</p>
+<hr />
+<h3 id="getwriteaccessforuser-user">getWriteAccessForUser( user )</h3>
+<p><strong>Arguments:</strong></p>
+<p>userId: PFUser</p>
+<p><strong>Returns:</strong></p>
+<p>Boolean</p>
+<hr />
 <hr />
 <hr />
 <h2 id="release-notes">Release Notes</h2>

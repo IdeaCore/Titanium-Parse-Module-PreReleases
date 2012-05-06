@@ -144,6 +144,7 @@ pre code {
 <p><a href="./pffilereference.html">PFFile Reference</a></p>
 <p><a href="./pfgeopointreference.html">PFGeoPoint Reference</a></p>
 <p><a href="./pfaclreference.html">PFACL Reference</a></p>
+<p><a href="./pffacebookutilsreference.html">PFFacebookUtils</a></p>
 <hr />
 <hr />
 <h2 id="table-of-contents">Table Of Contents</h2>
@@ -159,10 +160,11 @@ pre code {
 <li><a href="#functions">Functions</a><ul>
 <li><a href="#querywithclassname-classname">queryWithClassName( className )</a></li>
 <li><a href="#wherekey-map">whereKey( Map )</a></li>
-<li><a href="#wherekeycontainedin-map">whereKeyContainedIn( Map )</a></li>
 <li><a href="#includekey-key">includeKey( key )</a></li>
 <li><a href="#orderbyascending">orderByAscending()</a></li>
 <li><a href="#orderbydescending">orderByDescending()</a></li>
+<li><a href="#addascendingorder">addAscendingOrder()</a></li>
+<li><a href="#adddescendingorder">addDescendingOrder()</a></li>
 <li><a href="#resetquery">resetQuery()</a></li>
 <li><a href="#cancel-key">cancel( key )</a></li>
 <li><a href="#findobjects">findObjects()</a></li>
@@ -171,6 +173,8 @@ pre code {
 <li><a href="#countobjectsinbackground-map">countObjectsInBackground( Map )</a></li>
 <li><a href="#getobjectwithid-id">getObjectWithId( id )</a></li>
 <li><a href="#getobjectinbackgroundwithid-map">getObjectInBackgroundWithId( Map )</a></li>
+<li><a href="#getfirstobject">getFirstObject()</a></li>
+<li><a href="#getfirstobjectinbackground-map">getFirstObjectInBackground( Map )</a></li>
 </ul>
 </li>
 <li><a href="#properties">Properties</a><ul>
@@ -294,6 +298,13 @@ pre code {
 <p>OR</p>
 <pre><code>{
     key: String
+    matchesRegex: String
+    modifiers: String
+}
+</code></pre>
+<p>OR</p>
+<pre><code>{
+    key: String
     containsString: String
 }
 </code></pre>
@@ -309,16 +320,29 @@ pre code {
     hasSuffix: String
 }
 </code></pre>
-<p><strong>Returns:</strong></p>
-<p>void</p>
-<hr />
-<h3 id="wherekeycontainedin-map">whereKeyContainedIn( Map )</h3>
-<p><strong>Arguments:</strong></p>
-<p>Map:</p>
+<p>OR</p>
 <pre><code>{
     key: String
-
-    containedIn: Array of String
+    containedIn: Array of PFTypes or JSONTypes
+}
+</code></pre>
+<p>OR</p>
+<pre><code>{
+    key: String
+    notContainedIn: Array of PFTypes or JSONTypes
+}
+</code></pre>
+<p>OR</p>
+<pre><code>{
+    key: String
+    withinGeoBoxFromSouthwest: PFGeoPoint
+    toNortheast: PFGeoPoint
+}
+</code></pre>
+<p>OR</p>
+<pre><code>{
+    key: String
+    matchesQuery: PFQuery
 }
 </code></pre>
 <p><strong>Returns:</strong></p>
@@ -337,6 +361,18 @@ pre code {
 <p>void</p>
 <hr />
 <h3 id="orderbydescending">orderByDescending()</h3>
+<p><strong>Arguments:</strong></p>
+<p>key: String</p>
+<p><strong>Returns:</strong></p>
+<p>void</p>
+<hr />
+<h3 id="addascendingorder">addAscendingOrder()</h3>
+<p><strong>Arguments:</strong></p>
+<p>key: String</p>
+<p><strong>Returns:</strong></p>
+<p>void</p>
+<hr />
+<h3 id="adddescendingorder">addDescendingOrder()</h3>
 <p><strong>Arguments:</strong></p>
 <p>key: String</p>
 <p><strong>Returns:</strong></p>
@@ -453,6 +489,45 @@ pre code {
 <p>Map:</p>
 <pre><code>{
     id: String
+    success: Callback
+    error: Callback
+}
+</code></pre>
+<p><strong>Callbacks:</strong></p>
+<p>success:
+    event: Map</p>
+<pre><code>{
+    object: PFObject
+}
+</code></pre>
+<p>error:
+    event: Map</p>
+<pre><code>{
+    errorCode: Number
+    error: String
+}
+</code></pre>
+<p><strong>Returns:</strong></p>
+<p>void</p>
+<hr />
+<h3 id="getfirstobject">getFirstObject()</h3>
+<p><strong>Arguments:</strong></p>
+<p>void</p>
+<p><strong>Returns:</strong></p>
+<p>Map:  <br />
+</p>
+<pre><code>{
+    succeeded: Boolean
+    object: PFObject
+    errorCode: Number
+    error: String
+}
+</code></pre>
+<hr />
+<h3 id="getfirstobjectinbackground-map">getFirstObjectInBackground( Map )</h3>
+<p><strong>Arguments:</strong></p>
+<p>Map:</p>
+<pre><code>{
     success: Callback
     error: Callback
 }
