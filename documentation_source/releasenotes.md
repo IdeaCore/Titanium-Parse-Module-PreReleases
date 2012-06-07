@@ -109,6 +109,7 @@ ____
 
 - Parse is now out of beta
 - Upgraded to module version 1.0
+- Fixed Push Notifications Unsubscribe From Channel
 
 PFQuery
 
@@ -140,7 +141,6 @@ PFFacebookUtils
 
 - added singleton object to use Facebook Utilities. Can only be retrieved from ParseModule.pfFacebookUtils property
 - added: `FacebookRequestWithGraphPath`, `FacebookRequest`, `FacebookDialog`, `loginInBackground`, `linkUserInBackground`, `unlinkUserInBackground`, `shouldExtendAccessTokenForUser`, `extendAccessTokenForUserInBackground`, `extendAccessTokenIfNeededForUserInBackground`, `isLinkedWithUser`
-
 
 ###Version 2.0.2
 

@@ -1,4 +1,5 @@
 Latest Updates: 
+- Version 3.0Pre0.31: Fixed Push Notifications for iOS Unsubscribe From Channel
 - Version 3.0Pre0.3: Fixed iOS Module not compiling with Titanium 2.0. Refactored Facebook Utils Code.
 
 PreRelease Versions, Examples, and Documentation for the Titanium Parse Module.  
