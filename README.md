@@ -1,4 +1,5 @@
 Latest Updates: 
+- Version 3.0Pre0.4: Fixed Linker Error for PFFiles and GeoPoints. Also fixed an error that wouldn't let you compile for simulator under some cases
 - Version 3.0Pre0.31: Fixed Push Notifications for iOS Unsubscribe From Channel
 - Version 3.0Pre0.3: Fixed iOS Module not compiling with Titanium 2.0. Refactored Facebook Utils Code.
 
